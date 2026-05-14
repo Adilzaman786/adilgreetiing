@@ -10,6 +10,7 @@ import { useState, useEffect } from "react";
 export default function App() {
   const [isShareOpen, setIsShareOpen] = useState(false);
   const [isDuaOpen, setIsDuaOpen] = useState(false);
+  const [showThankYou, setShowThankYou] = useState(false);
   const [copied, setCopied] = useState(false);
 
   // Typing Effect State
@@ -110,6 +111,12 @@ export default function App() {
       url: `mailto:?subject=Eid Mubarak!&body=${encodeURIComponent(shareText + "\n\n" + shareUrl)}` 
     },
   ];
+
+  const handleCloseDua = () => {
+    setIsDuaOpen(false);
+    setShowThankYou(true);
+    setTimeout(() => setShowThankYou(false), 5000);
+  };
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(shareUrl);
@@ -508,7 +515,7 @@ export default function App() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              onClick={() => setIsDuaOpen(false)}
+              onClick={handleCloseDua}
               className="fixed inset-0 bg-black/80 backdrop-blur-md z-[110]"
             />
             <motion.div
@@ -566,7 +573,7 @@ export default function App() {
                       {fullDua.arabic}
                     </p>
                     <div className="h-[1px] w-12 bg-eid-gold/20 mx-auto" />
-                    <p className="font-urdu text-2xl md:text-4xl text-eid-gold leading-[1.8] drop-shadow-md pb-4">
+                    <p className="font-urdu text-2xl md:text-4xl text-eid-gold leading-[2.5] md:leading-[2.8] drop-shadow-md pb-4">
                       {fullDua.urdu}
                     </p>
                   </motion.div>
@@ -577,13 +584,32 @@ export default function App() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.8 }}
-                onClick={() => setIsDuaOpen(false)}
+                onClick={handleCloseDua}
                 className="mt-6 md:mt-8 px-8 md:px-10 py-3 border border-eid-gold/30 text-eid-gold rounded-full hover:bg-eid-gold hover:text-eid-green transition-all duration-300 font-medium uppercase tracking-widest text-[10px] md:text-xs cursor-pointer flex-shrink-0"
               >
                 Close Greeting
               </motion.button>
             </motion.div>
           </>
+        )}
+      </AnimatePresence>
+
+      {/* Thank You Notification */}
+      <AnimatePresence>
+        {showThankYou && (
+          <motion.div
+            initial={{ opacity: 0, y: 50, scale: 0.9, x: "-50%" }}
+            animate={{ opacity: 1, y: 0, scale: 1, x: "-50%" }}
+            exit={{ opacity: 0, y: -20, scale: 0.9, x: "-50%" }}
+            className="fixed bottom-12 left-1/2 z-[200] px-8 py-4 bg-eid-gold shadow-[0_20px_50px_rgba(212,175,55,0.4)] rounded-full flex items-center gap-3 border border-white/20"
+          >
+            <div className="bg-eid-green rounded-full p-1.5">
+              <Heart size={16} className="text-eid-gold fill-eid-gold" />
+            </div>
+            <span className="text-eid-green font-bold text-sm tracking-tight whitespace-nowrap">
+              Thank you for sharing the joy!
+            </span>
+          </motion.div>
         )}
       </AnimatePresence>
     </div>
