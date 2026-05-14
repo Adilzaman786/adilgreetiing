@@ -1,0 +1,8 @@
+{
+  "name": "Eid Mubarak - Adil Zaman",
+  "description": "A beautiful and festive greeting website for Eid-ul-Adha from Adil Zaman.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

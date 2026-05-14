@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Cormorant Garamond", serif;
+  --font-sans: "Inter", sans-serif;
+  --font-urdu: "Noto Nastaliq Urdu", serif;
+  
+  --color-eid-gold: #D4AF37;
+  --color-eid-gold-light: #F9E29B;
+  --color-eid-gold-dark: #916B25;
+  --color-eid-green: #021c15; /* Deep Obsidian Green */
+  --color-eid-green-light: #064E3B;
+}
+
+@layer base {
+  body {
+    @apply bg-eid-green text-white font-sans overflow-x-hidden;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+
+  body::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+  }
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.glow-text {
+  text-shadow: 0 0 30px rgba(212, 175, 55, 0.6), 0 0 10px rgba(212, 175, 55, 0.4);
+}
+
+.gold-gradient {
+  background: linear-gradient(135deg, #BF953F 0%, #FCF6BA 45%, #B38728 50%, #FBF5B7 55%, #AA771C 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gold-btn-gradient {
+  background: linear-gradient(135deg, #D4AF37 0%, #F9E29B 50%, #B38728 100%);
+}
+
+.ornament-bg {
+  background-image: 
+    radial-gradient(circle at 2px 2px, rgba(212, 175, 55, 0.05) 1px, transparent 0),
+    linear-gradient(to bottom, rgba(2, 28, 21, 1), rgba(6, 78, 59, 0.8));
+  background-size: 40px 40px, 100% 100%;
+}
+
+.premium-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(212, 175, 55, 0.15);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes pulse-gold {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.05); }
+}
+
+.hint-animate {
+  animation: pulse-gold 2s infinite ease-in-out;
+}
