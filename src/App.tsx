@@ -10,8 +10,10 @@ import { useState, useEffect } from "react";
 export default function App() {
   const [isShareOpen, setIsShareOpen] = useState(false);
   const [isDuaOpen, setIsDuaOpen] = useState(false);
+  const [isGiftOpen, setIsGiftOpen] = useState(false);
   const [showThankYou, setShowThankYou] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [isScratched, setIsScratched] = useState(false);
 
   // Typing Effect State
   const phrases = ["Eid Mubarak", "Eid-ul-Adha", "Eid Greetings"];
@@ -170,20 +172,22 @@ export default function App() {
           animate="visible"
           className="max-w-3xl w-full"
         >
-          {/* Icons */}
-          <motion.div variants={itemVariants} className="flex justify-center gap-4 mb-8">
-            <motion.div
-              animate={{ rotate: [0, 10, -10, 0] }}
-              transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-            >
-              <Moon className="w-12 h-12 text-eid-gold" strokeWidth={1.5} />
-            </motion.div>
-            <motion.div
-              animate={{ scale: [1, 1.2, 1] }}
-              transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
-            >
-              <Star className="w-8 h-8 text-eid-gold fill-eid-gold" strokeWidth={1.5} />
-            </motion.div>
+          {/* Eid Image */}
+          <motion.div variants={itemVariants} className="flex justify-center mb-8">
+            <motion.img
+              src="/eid-ul-adha.png"
+              alt="Eid Ul Adha Mubarak"
+              className="w-64 h-64 md:w-80 md:h-80 object-contain"
+              animate={{ 
+                scale: [1, 1.05, 1],
+                filter: ["brightness(1)", "brightness(1.1)", "brightness(1)"]
+              }}
+              transition={{ 
+                repeat: Infinity, 
+                duration: 4, 
+                ease: "easeInOut" 
+              }}
+            />
           </motion.div>
 
           {/* Urdu Heading */}
@@ -309,7 +313,7 @@ export default function App() {
           </motion.div>
 
           {/* Share Button */}
-          <motion.div variants={itemVariants} className="mb-16 flex justify-center">
+          <motion.div variants={itemVariants} className="mb-8 flex justify-center">
             <button
               onClick={() => setIsShareOpen(true)}
               className="gold-btn-gradient flex items-center justify-center gap-3 px-10 py-5 text-eid-green rounded-full font-bold uppercase tracking-widest text-sm hover:scale-105 transition-all duration-300 shadow-[0_10px_40px_rgba(212,175,55,0.4)] hover:shadow-[0_15px_50px_rgba(212,175,55,0.6)] group cursor-pointer border border-eid-gold-light/30 min-w-[280px]"
@@ -317,6 +321,37 @@ export default function App() {
               <Share2 size={20} className="group-hover:rotate-12 transition-transform duration-500" />
               <span>Spread the Joy</span>
             </button>
+          </motion.div>
+
+          {/* Eid Gift Button */}
+          <motion.div variants={itemVariants} className="mb-16 flex justify-center">
+            <motion.button
+              onClick={() => setIsGiftOpen(true)}
+              className="relative overflow-hidden flex items-center justify-center gap-3 px-10 py-5 bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-500 text-white rounded-full font-bold uppercase tracking-widest text-sm hover:scale-105 transition-all duration-300 shadow-[0_10px_40px_rgba(245,158,11,0.4)] hover:shadow-[0_15px_50px_rgba(245,158,11,0.6)] group cursor-pointer border-2 border-yellow-300 min-w-[280px]"
+              animate={{
+                backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "linear"
+              }}
+            >
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                animate={{
+                  x: ["-100%", "100%"],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "linear"
+                }}
+              />
+              <Heart size={20} className="group-hover:scale-110 transition-transform duration-300" />
+              <span className="relative z-10">Eid Gift for you</span>
+              <Sparkles size={20} className="group-hover:rotate-180 transition-transform duration-500" />
+            </motion.button>
           </motion.div>
 
           {/* Decorative Footer */}
@@ -610,6 +645,225 @@ export default function App() {
               Thank you for sharing the joy!
             </span>
           </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Eid Gift Scratch Card Modal */}
+      <AnimatePresence>
+        {isGiftOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsGiftOpen(false)}
+              className="fixed inset-0 bg-black/80 backdrop-blur-md z-[120]"
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8, y: 50 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.8, y: 50 }}
+              className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[92%] max-w-md premium-card rounded-[2.5rem] p-8 md:p-12 z-[121] overflow-hidden shadow-[0_0_100px_rgba(212,175,55,0.3)] border border-eid-gold/20 hover:border-eid-gold/40 transition-all duration-500"
+            >
+              {/* Animated internal background glow */}
+              <div className="absolute inset-0 bg-gradient-to-br from-eid-gold/0 via-eid-gold/[0.02] to-eid-gold/0 opacity-50" />
+              
+              <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-eid-gold/40 to-transparent" />
+              <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-eid-gold/40 to-transparent" />
+
+              <div className="flex flex-col items-center relative z-10">
+                {/* Close Button */}
+                <button
+                  onClick={() => setIsGiftOpen(false)}
+                  className="absolute top-2 right-2 p-2 text-eid-gold/40 hover:text-eid-gold transition-colors cursor-pointer"
+                >
+                  <X size={24} />
+                </button>
+
+                {/* Header */}
+                <motion.div
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                  className="text-center mb-8"
+                >
+                  <motion.div
+                    animate={{ rotate: [0, 10, -10, 0] }}
+                    transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+                    className="inline-block mb-4"
+                  >
+                    <Sparkles size={36} className="text-eid-gold drop-shadow-[0_0_10px_rgba(212,175,55,0.5)]" />
+                  </motion.div>
+                  <h3 className="text-3xl font-serif text-eid-gold mb-2 tracking-wide">Your Eid Gift</h3>
+                  <p className="text-sm text-eid-gold/60 uppercase tracking-[0.2em]">Scratch to reveal your surprise!</p>
+                </motion.div>
+
+                {/* Scratch Card Container */}
+                <div className="relative w-72 h-72 mb-8">
+                  {/* Hidden Content (Logo + Text) */}
+                  <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-amber-50 via-yellow-50 to-amber-100 rounded-3xl p-6 shadow-inner border-2 border-amber-200">
+                    <motion.img
+                      src="/zaman-logo.png"
+                      alt="Zaman Logo"
+                      className="w-40 h-40 object-contain mb-4 drop-shadow-lg"
+                      initial={{ scale: 0, rotate: -180 }}
+                      animate={isScratched ? { scale: 1, rotate: 0 } : { scale: 0, rotate: -180 }}
+                      transition={{ type: "spring", stiffness: 200, damping: 20 }}
+                    />
+                    <motion.p
+                      className="text-xl font-bold text-amber-900 text-center tracking-wide"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={isScratched ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                      transition={{ delay: 0.3 }}
+                    >
+                      Today Free Delivery
+                    </motion.p>
+                  </div>
+
+                  {/* Scratch Overlay */}
+                  {!isScratched && (
+                    <motion.canvas
+                      ref={(canvas) => {
+                        if (canvas && !isScratched) {
+                          const ctx = canvas.getContext('2d');
+                          if (ctx) {
+                            canvas.width = 288;
+                            canvas.height = 288;
+                            
+                            // Fill with golden gradient
+                            const gradient = ctx.createLinearGradient(0, 0, 288, 288);
+                            gradient.addColorStop(0, '#D4AF37');
+                            gradient.addColorStop(0.3, '#FFD700');
+                            gradient.addColorStop(0.5, '#FFF8DC');
+                            gradient.addColorStop(0.7, '#FFD700');
+                            gradient.addColorStop(1, '#D4AF37');
+                            ctx.fillStyle = gradient;
+                            ctx.fillRect(0, 0, 288, 288);
+
+                            // Add decorative pattern
+                            ctx.fillStyle = 'rgba(255, 255, 255, 0.15)';
+                            for (let i = 0; i < 80; i++) {
+                              ctx.beginPath();
+                              ctx.arc(
+                                Math.random() * 288,
+                                Math.random() * 288,
+                                Math.random() * 4,
+                                0,
+                                Math.PI * 2
+                              );
+                              ctx.fill();
+                            }
+
+                            // Add decorative border
+                            ctx.strokeStyle = '#8B6914';
+                            ctx.lineWidth = 3;
+                            ctx.strokeRect(10, 10, 268, 268);
+
+                            // Add text
+                            ctx.fillStyle = '#8B6914';
+                            ctx.font = 'bold 24px Arial';
+                            ctx.textAlign = 'center';
+                            ctx.textBaseline = 'middle';
+                            ctx.fillText('SCRATCH ME', 144, 144);
+
+                            // Scratch functionality
+                            let isDrawing = false;
+                            let scratchedPixels = 0;
+                            const totalPixels = 288 * 288;
+
+                            const scratch = (x: number, y: number) => {
+                              ctx.globalCompositeOperation = 'destination-out';
+                              ctx.beginPath();
+                              ctx.arc(x, y, 30, 0, Math.PI * 2);
+                              ctx.fill();
+
+                              // Check scratched percentage
+                              const imageData = ctx.getImageData(0, 0, 288, 288);
+                              let transparent = 0;
+                              for (let i = 3; i < imageData.data.length; i += 4) {
+                                if (imageData.data[i] === 0) transparent++;
+                              }
+
+                              if (transparent / (totalPixels) > 0.4) {
+                                setIsScratched(true);
+                              }
+                            };
+
+                            const getPos = (e: MouseEvent | TouchEvent) => {
+                              const rect = canvas.getBoundingClientRect();
+                              const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
+                              const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
+                              return {
+                                x: clientX - rect.left,
+                                y: clientY - rect.top
+                              };
+                            };
+
+                            canvas.addEventListener('mousedown', (e) => {
+                              isDrawing = true;
+                              const pos = getPos(e);
+                              scratch(pos.x, pos.y);
+                            });
+
+                            canvas.addEventListener('mousemove', (e) => {
+                              if (isDrawing) {
+                                const pos = getPos(e);
+                                scratch(pos.x, pos.y);
+                              }
+                            });
+
+                            canvas.addEventListener('mouseup', () => isDrawing = false);
+                            canvas.addEventListener('mouseleave', () => isDrawing = false);
+
+                            // Touch events
+                            canvas.addEventListener('touchstart', (e) => {
+                              e.preventDefault();
+                              isDrawing = true;
+                              const pos = getPos(e);
+                              scratch(pos.x, pos.y);
+                            });
+
+                            canvas.addEventListener('touchmove', (e) => {
+                              e.preventDefault();
+                              if (isDrawing) {
+                                const pos = getPos(e);
+                                scratch(pos.x, pos.y);
+                              }
+                            });
+
+                            canvas.addEventListener('touchend', () => isDrawing = false);
+                          }
+                        }
+                      }}
+                      className="absolute inset-0 w-full h-full rounded-3xl cursor-pointer shadow-lg"
+                      initial={{ opacity: 1 }}
+                      exit={{ opacity: 0, transition: { duration: 0.5 } }}
+                    />
+                  )}
+                </div>
+
+                {/* Visit Website Button */}
+                <motion.a
+                  href="https://zamanmall.netlify.app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={isScratched ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                  transition={{ delay: 0.5 }}
+                  className="w-full"
+                >
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="gold-btn-gradient flex items-center justify-center gap-3 px-8 py-5 text-eid-green rounded-full font-bold uppercase tracking-widest text-sm hover:scale-105 transition-all duration-300 shadow-[0_10px_40px_rgba(212,175,55,0.4)] hover:shadow-[0_15px_50px_rgba(212,175,55,0.6)] group cursor-pointer border border-eid-gold-light/30 w-full"
+                  >
+                    <Share2 size={20} className="group-hover:rotate-12 transition-transform duration-500" />
+                    <span>Claim Now</span>
+                  </motion.button>
+                </motion.a>
+              </div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </div>
