@@ -236,7 +236,7 @@ export default function App() {
           {/* Subtitle */}
           <motion.p 
             variants={itemVariants}
-            className="font-urdu text-xl md:text-2xl text-eid-gold/80 max-w-2xl mx-auto mb-12 leading-relaxed"
+            className="font-urdu text-xl md:text-2xl text-eid-gold/80 max-w-2xl mx-auto mb-12 leading-[2.5]"
           >
             آپ کو اور آپ کے اہل خانہ کو اللہ کی رحمتوں، خوشیوں اور امن سے بھری عید الاضحیٰ مبارک ہو۔ دعا ہے کہ یہ قربانی آپ کو خالقِ حقیقی کے مزید قریب کر دے۔
           </motion.p>
@@ -254,7 +254,7 @@ export default function App() {
             <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-eid-gold/40 to-transparent group-hover:via-eid-gold transition-all duration-500" />
             <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-eid-gold/40 to-transparent group-hover:via-eid-gold transition-all duration-500" />
             
-            <p className="text-3xl md:text-5xl font-urdu text-white/90 mb-12 leading-relaxed drop-shadow-sm">
+            <p className="text-3xl md:text-5xl font-urdu text-white/90 mb-12 leading-[2.5] drop-shadow-sm">
               "قربانی محبت اور عقیدت کا عظیم ترین عمل ہے"
             </p>
             
